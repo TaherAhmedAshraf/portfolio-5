@@ -1,18 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { motion } from "framer-motion";
 import { 
   FadeIn, 
   SlideUp,
-  AnimatedButton
 } from "@/components/animations/motion-elements";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Facebook, Instagram, X } from "lucide-react";
 import { SectionBackground } from "./section-background";
-import { HeroBackground } from "./hero-background";
-import { Github, Linkedin, Twitter, Instagram, X, Facebook } from "lucide-react";
-import { cn, smoothScroll } from "@/lib/utils";
+import { smoothScroll } from "@/lib/utils";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

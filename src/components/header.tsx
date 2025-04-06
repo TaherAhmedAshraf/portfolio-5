@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn, smoothScroll } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedButton } from "@/components/animations/motion-elements";
@@ -105,7 +104,7 @@ export function Header() {
 
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
-  }, [isHovered]);
+  }, [isHovered, triggerAnimation]);
 
   // Handle scroll effect
   useEffect(() => {
@@ -267,7 +266,7 @@ export function Header() {
               variant="outline"
               asChild
             >
-              <Link href="/contact" onClick={(e) => smoothScroll(e, "/contact")}>Let's Connect</Link>
+              <Link href="/contact" onClick={(e) => smoothScroll(e, "/contact")}>Let&apos;s Connect</Link>
             </Button>
           </AnimatedButton>
         </motion.div>
@@ -295,7 +294,7 @@ export function Header() {
               variants={mobileMenuVariants}
             >
               <motion.nav className="flex flex-col">
-                {navItems.map((item, i) => (
+                {navItems.map((item) => (
                   <motion.div
                     key={item.href}
                     variants={mobileNavItemVariants}
@@ -337,7 +336,7 @@ export function Header() {
                     size="lg"
                     asChild
                   >
-                    <Link href="/contact" onClick={(e) => smoothScroll(e, "/contact")}>Let's Connect</Link>
+                    <Link href="/contact" onClick={(e) => smoothScroll(e, "/contact")}>Let&apos;s Connect</Link>
                   </Button>
                 </motion.div>
               </motion.nav>

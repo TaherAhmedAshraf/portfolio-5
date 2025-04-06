@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { 
   FadeIn, 
@@ -19,9 +19,10 @@ import { AnimatedCharacters, AnimatedWords } from "@/components/animations/anima
 import { SectionBackground } from "@/components/section-background";
 import { Loader2, Github, Linkedin, Mail, MapPin, X, Instagram, Facebook } from "lucide-react";
 
-export default function ContactPage() {
+// Contact form component that uses search params
+function ContactForm() {
   const searchParams = useSearchParams();
-  const serviceParam = searchParams.get('service');
+  const serviceParam = searchParams.get("service");
   
   // Form state
   const [formState, setFormState] = useState({
@@ -99,6 +100,103 @@ export default function ContactPage() {
     }
   };
 
+  return (
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="name" className="text-sm font-medium mb-1 block">
+              Your Name
+            </label>
+            <Input
+              id="name"
+              name="name"
+              value={formState.name}
+              onChange={handleChange}
+              placeholder="John Doe"
+              required
+              className="bg-background/50"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="text-sm font-medium mb-1 block">
+              Email Address
+            </label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={formState.email}
+              onChange={handleChange}
+              placeholder="johndoe@example.com"
+              required
+              className="bg-background/50"
+            />
+          </div>
+        </div>
+        <div>
+          <label htmlFor="subject" className="text-sm font-medium mb-1 block">
+            Subject
+          </label>
+          <Input
+            id="subject"
+            name="subject"
+            value={formState.subject}
+            onChange={handleChange}
+            placeholder="Project inquiry, collaboration, etc."
+            className="bg-background/50"
+          />
+        </div>
+        <div>
+          <label htmlFor="message" className="text-sm font-medium mb-1 block">
+            Message
+          </label>
+          <Textarea
+            id="message"
+            name="message"
+            value={formState.message}
+            onChange={handleChange}
+            placeholder="Tell me about your project or question..."
+            rows={6}
+            required
+            className="resize-none bg-background/50"
+          />
+        </div>
+      </div>
+      
+      {submitError && (
+        <div className="p-4 bg-destructive/10 text-destructive rounded-md text-sm">
+          {submitError}
+        </div>
+      )}
+      
+      {submitSuccess && (
+        <div className="p-4 bg-primary/10 text-primary rounded-md text-sm">
+          Your message has been sent successfully! I'll get back to you soon.
+        </div>
+      )}
+      
+      <AnimatedButton>
+        <Button 
+          type="submit" 
+          className="w-full rounded-full pulse-effect" 
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Sending...
+            </>
+          ) : (
+            "Send Message"
+          )}
+        </Button>
+      </AnimatedButton>
+    </form>
+  );
+}
+
+export default function ContactPage() {
   // Social media links with icons
   const socialLinks = [
     { name: 'GitHub', icon: <Github size={22} strokeWidth={1.5} />, href: 'https://github.com/taherahmedashraf' },
@@ -137,11 +235,11 @@ export default function ContactPage() {
             <SlideUp>
               <div className="flex flex-col gap-2">
                 <AnimatedCharacters 
-                  text="Let's Connect" 
+                  text="Let&apos;s Connect" 
                   className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter gradient-text"
                 />
                 <AnimatedWords 
-                  text="I'd Love to Hear from You" 
+                  text="I&apos;d Love to Hear from You" 
                   className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tighter"
                 />
               </div>
@@ -150,7 +248,7 @@ export default function ContactPage() {
             <FadeIn delay={0.5} className="mb-8">
               <p className="text-lg text-muted-foreground">
                 Whether you have a project in mind, a question about my services, or just want to say hello,
-                I'm always open to new connections and opportunities.
+                I&apos;m always open to new connections and opportunities.
               </p>
             </FadeIn>
           </div>
@@ -168,172 +266,88 @@ export default function ContactPage() {
                 <CardHeader>
                   <CardTitle className="text-2xl">Send a Message</CardTitle>
                   <CardDescription>
-                    Fill out the form below and I'll get back to you as soon as possible.
+                    Fill out the form below and I&apos;ll get back to you as soon as possible.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label htmlFor="name" className="text-sm font-medium mb-1 block">
-                            Your Name
-                          </label>
-                          <Input
-                            id="name"
-                            name="name"
-                            value={formState.name}
-                            onChange={handleChange}
-                            placeholder="John Doe"
-                            required
-                            className="bg-background/50"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="text-sm font-medium mb-1 block">
-                            Email Address
-                          </label>
-                          <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            value={formState.email}
-                            onChange={handleChange}
-                            placeholder="john@example.com"
-                            required
-                            className="bg-background/50"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <label htmlFor="subject" className="text-sm font-medium mb-1 block">
-                          Subject
-                        </label>
-                        <Input
-                          id="subject"
-                          name="subject"
-                          value={formState.subject}
-                          onChange={handleChange}
-                          placeholder="What is this regarding?"
-                          required
-                          className="bg-background/50"
-                        />
-                      </div>
-                      <div className="mb-6">
-                        <label htmlFor="message" className="text-sm font-medium mb-1 block">
-                          Message
-                        </label>
-                        <Textarea
-                          id="message"
-                          name="message"
-                          value={formState.message}
-                          onChange={handleChange}
-                          placeholder="Tell me about your project, question, or just say hi!"
-                          required
-                          rows={6}
-                          className="resize-none bg-background/50"
-                        />
-                      </div>
-                    </div>
-                    
-                    <Button 
-                      type="submit" 
-                      className="w-full" 
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Sending...
-                        </>
-                      ) : "Send Message"}
-                    </Button>
-                    
-                    {submitError && (
-                      <p className="text-destructive mt-2 text-center">{submitError}</p>
-                    )}
-                    
-                    {submitSuccess && (
-                      <div className="mt-4 p-3 bg-primary/10 border border-primary/30 rounded-md text-center">
-                        <p className="text-primary font-medium">Message sent successfully! I'll get back to you soon.</p>
-                      </div>
-                    )}
-                  </form>
+                  <Suspense fallback={<div>Loading form...</div>}>
+                    <ContactForm />
+                  </Suspense>
                 </CardContent>
               </Card>
             </SlideInLeft>
 
             {/* Contact Info */}
             <SlideInRight>
-              <div className="space-y-10">
-                <div className="space-y-6">
-                  <h3 className="text-2xl font-bold">Contact Information</h3>
-                  <p className="text-muted-foreground">
-                    I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+              <div className="flex flex-col gap-10">
+                <div>
+                  <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Have a specific question or project in mind? Reach out directly through these channels:
                   </p>
                   
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                        <Mail size={20} strokeWidth={1.5} />
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                      <div className="p-2 bg-primary/10 rounded-full">
+                        <Mail size={20} className="text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground">Email</p>
-                        <p className="font-medium">mail@taher.one</p>
+                        <h4 className="text-sm font-medium">Email</h4>
+                        <a 
+                          href="mailto:taher88@live.com" 
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          taher88@live.com
+                        </a>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                        <MapPin size={20} strokeWidth={1.5} />
+                    <div className="flex items-center gap-4">
+                      <div className="p-2 bg-primary/10 rounded-full">
+                        <MapPin size={20} className="text-primary" />
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground">Location</p>
-                        <p className="font-medium">Dhaka, Bangladesh</p>
+                        <h4 className="text-sm font-medium">Location</h4>
+                        <p className="text-muted-foreground">Dhaka, Bangladesh</p>
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <div className="space-y-6">
-                  <h3 className="text-2xl font-bold">Follow Me</h3>
-                  <p className="text-muted-foreground">
-                    Connect with me on social media to see my latest projects and updates.
-                  </p>
-                  
-                  <div className="flex gap-4">
-                    {socialLinks.map((social, i) => (
+                
+                <div>
+                  <h3 className="text-2xl font-bold mb-6">Connect With Me</h3>
+                  <div className="flex flex-wrap gap-4">
+                    {socialLinks.map((social, index) => (
                       <motion.a
                         key={social.name}
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-11 h-11 rounded-full bg-background/40 border border-primary/20 flex items-center justify-center text-primary hover:text-white hover:bg-primary/80 backdrop-blur-sm transition-colors"
-                        initial="hidden"
-                        whileInView="visible"
-                        whileHover="hover"
-                        viewport={{ once: true }}
+                        className="p-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-all"
                         variants={socialIconVariants}
-                        transition={{ delay: 0.15 * i }}
-                        aria-label={`Visit ${social.name}`}
+                        initial="hidden"
+                        animate="visible"
+                        whileHover="hover"
+                        transition={{ delay: index * 0.1 }}
+                        aria-label={social.name}
                       >
                         {social.icon}
                       </motion.a>
                     ))}
                   </div>
                 </div>
-
-                <div className="space-y-6">
-                  <h3 className="text-2xl font-bold">Looking for Work?</h3>
-                  <p className="text-muted-foreground">
-                    I'm currently open to select freelance opportunities and permanent positions.
+                
+                <div className="p-6 bg-primary/5 border border-primary/10 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4">Project Request</h3>
+                  <p className="text-muted-foreground mb-4">
+                    If you have a specific project in mind, including these details helps me understand your needs better:
                   </p>
-                  
-                  <AnimatedButton>
-                    <Button variant="outline" className="rounded-full px-6" asChild>
-                      <Link href="/about">Learn More About Me</Link>
-                    </Button>
-                  </AnimatedButton>
+                  <ul className="space-y-2 pl-5 list-disc text-sm text-muted-foreground marker:text-primary">
+                    <li>Project type and scope</li>
+                    <li>Target audience and goals</li>
+                    <li>Timeline and budget expectations</li>
+                    <li>Any specific technologies or requirements</li>
+                  </ul>
                 </div>
               </div>
             </SlideInRight>
@@ -373,7 +387,7 @@ export default function ContactPage() {
               <div className="space-y-3">
                 <h3 className="text-xl font-bold text-primary">How do you handle project pricing?</h3>
                 <p className="text-muted-foreground">
-                  I offer both fixed-price and hourly rate options depending on the project's scope and requirements. 
+                  I offer both fixed-price and hourly rate options depending on the project&apos;s scope and requirements. 
                   For most projects, I provide a detailed quote after our initial consultation when I have a clear 
                   understanding of your needs and expectations.
                 </p>
@@ -395,7 +409,7 @@ export default function ContactPage() {
                 <h3 className="text-xl font-bold text-primary">Do you work with clients internationally?</h3>
                 <p className="text-muted-foreground">
                   Yes, I work with clients globally and have experience collaborating across different time zones. 
-                  I'm flexible with scheduling meetings to accommodate different time zones and prefer clear 
+                  I&apos;m flexible with scheduling meetings to accommodate different time zones and prefer clear 
                   communication to ensure smooth project progress.
                 </p>
               </div>

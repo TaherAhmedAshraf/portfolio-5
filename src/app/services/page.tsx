@@ -14,7 +14,6 @@ import {
 } from "@/components/animations/motion-elements";
 import { AnimatedCharacters, AnimatedWords } from "@/components/animations/animated-text";
 import { SectionBackground } from "@/components/section-background";
-import { Separator } from "@/components/ui/separator";
 
 export default function ServicesPage() {
   return (
@@ -40,7 +39,7 @@ export default function ServicesPage() {
             <FadeIn delay={0.5} className="mb-8">
               <p className="text-lg text-muted-foreground">
                 I offer comprehensive services in full-stack development, mobile apps, 
-                AI integration, and more. Let's transform your ideas into exceptional digital experiences.
+                AI integration, and more. Let&apos;s transform your ideas into exceptional digital experiences.
               </p>
             </FadeIn>
             
@@ -467,7 +466,7 @@ export default function ServicesPage() {
                 <p className="text-muted-foreground">
                   Project timelines vary based on complexity and scope. Simple websites may take 2-4 weeks, 
                   while complex applications can take 3-6 months. During our initial consultation, 
-                  I'll provide a more accurate timeline based on your specific requirements.
+                  I&apos;ll provide a more accurate timeline based on your specific requirements.
                 </p>
               </div>
             </FadeIn>
@@ -488,7 +487,7 @@ export default function ServicesPage() {
                 <h3 className="text-xl font-bold text-primary">How do payments work?</h3>
                 <p className="text-muted-foreground">
                   I typically work with a 30% upfront deposit, followed by milestone-based payments. 
-                  For larger projects, we'll establish a payment schedule aligned with project phases. 
+                  For larger projects, we&apos;ll establish a payment schedule aligned with project phases. 
                   I accept bank transfers, PayPal, and major credit cards.
                 </p>
               </div>
@@ -498,7 +497,7 @@ export default function ServicesPage() {
               <div className="space-y-3">
                 <h3 className="text-xl font-bold text-primary">Can you work with an existing codebase?</h3>
                 <p className="text-muted-foreground">
-                  Absolutely. I can review, optimize, and extend existing codebases. I'll first conduct 
+                  Absolutely. I can review, optimize, and extend existing codebases. I&apos;ll first conduct 
                   a code audit to understand the current architecture and identify potential improvements 
                   before implementing changes.
                 </p>
@@ -509,7 +508,7 @@ export default function ServicesPage() {
               <div className="space-y-3">
                 <h3 className="text-xl font-bold text-primary">Do you provide source code access?</h3>
                 <p className="text-muted-foreground">
-                  Yes, you'll receive full access to the source code once the project is completed and final 
+                  Yes, you&apos;ll receive full access to the source code once the project is completed and final 
                   payment is received. I believe in transparency and ensuring you have complete ownership 
                   of your digital assets.
                 </p>
@@ -521,7 +520,7 @@ export default function ServicesPage() {
                 <h3 className="text-xl font-bold text-primary">How do we communicate during the project?</h3>
                 <p className="text-muted-foreground">
                   I maintain regular communication through your preferred channels (email, Slack, Microsoft Teams). 
-                  We'll have scheduled check-ins to review progress, provide feedback, and make adjustments as needed.
+                  We&apos;ll have scheduled check-ins to review progress, provide feedback, and make adjustments as needed.
                 </p>
               </div>
             </FadeIn>
@@ -541,8 +540,8 @@ export default function ServicesPage() {
             </ScaleUp>
             <FadeIn delay={0.3} className="mb-8">
               <p className="text-lg text-muted-foreground">
-                Let's discuss your project needs and create something amazing together.
-                I'm here to help turn your vision into reality with tailored solutions.
+                Let&apos;s discuss your project needs and create something amazing together.
+                I&apos;m here to help turn your vision into reality with tailored solutions.
               </p>
             </FadeIn>
             <FadeIn delay={0.5} className="flex flex-wrap gap-4 justify-center">

@@ -4,19 +4,16 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { 
   FadeIn, 
   SlideUp, 
-  SlideInLeft, 
-  SlideInRight, 
   ScaleUp,
   AnimatedButton
 } from "@/components/animations/motion-elements";
-import { AnimatedCharacters, AnimatedWords } from "@/components/animations/animated-text";
-import { AnimatedProjectCard } from "@/components/animations/animated-card";
+import { AnimatedCharacters } from "@/components/animations/animated-text";
 import { SectionBackground } from "@/components/section-background";
 
 // Project types for filtering
@@ -311,7 +308,7 @@ export default function PortfolioPage() {
             </ScaleUp>
             <FadeIn delay={0.3} className="mb-8">
               <p className="text-lg text-muted-foreground">
-                Let's collaborate and bring your vision to life. I'm ready to help you build 
+                Let&apos;s collaborate and bring your vision to life. I&apos;m ready to help you build 
                 something amazing that exceeds your expectations.
               </p>
             </FadeIn>

@@ -68,7 +68,7 @@ export function AIProjectGenerator() {
       try {
         // First try direct parsing
         ideaData = JSON.parse(jsonStr);
-      } catch (error) {
+      } catch {
         console.log("Direct parsing failed, trying to extract JSON...");
         
         // Try to extract JSON from markdown code blocks
@@ -108,15 +108,17 @@ export function AIProjectGenerator() {
   };
   
   // Validate that the project idea has the required structure
-  const isValidProjectIdea = (idea: any): idea is ProjectIdea => {
+  const isValidProjectIdea = (idea: unknown): idea is ProjectIdea => {
+    if (!idea || typeof idea !== 'object') return false;
+    
+    const potentialIdea = idea as Partial<ProjectIdea>;
     return (
-      idea &&
-      typeof idea.title === "string" &&
-      typeof idea.description === "string" &&
-      Array.isArray(idea.technologies) &&
-      typeof idea.difficulty === "string" &&
-      typeof idea.estimatedTime === "string" &&
-      Array.isArray(idea.keyFeatures)
+      typeof potentialIdea.title === "string" &&
+      typeof potentialIdea.description === "string" &&
+      Array.isArray(potentialIdea.technologies) &&
+      typeof potentialIdea.difficulty === "string" &&
+      typeof potentialIdea.estimatedTime === "string" &&
+      Array.isArray(potentialIdea.keyFeatures)
     );
   };
   
@@ -175,7 +177,7 @@ export function AIProjectGenerator() {
         <CardHeader>
           <CardTitle className="text-2xl">AI Project Generator</CardTitle>
           <CardDescription>
-            Describe what kind of project you're interested in, and I'll generate a creative project idea for you.
+            Describe what kind of project you&apos;re interested in, and I&apos;ll generate a creative project idea for you.
           </CardDescription>
         </CardHeader>
         <CardContent>

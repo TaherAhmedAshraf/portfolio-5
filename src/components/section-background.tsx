@@ -137,7 +137,7 @@ export function SectionBackground({
       transition: {
         duration: 15,
         repeat: Infinity,
-        repeatType: "reverse",
+        repeatType: "reverse" as const,
         ease: "easeInOut",
       }
     },
@@ -156,7 +156,7 @@ export function SectionBackground({
       transition: {
         duration: 18,
         repeat: Infinity,
-        repeatType: "reverse",
+        repeatType: "reverse" as const,
         ease: "easeInOut",
         delay: 2
       }
@@ -199,7 +199,7 @@ export function SectionBackground({
               transition={{
                 duration: 10,
                 repeat: Infinity,
-                repeatType: "reverse",
+                repeatType: "reverse" as const,
                 ease: "easeInOut",
               }}
             />
@@ -220,7 +220,7 @@ export function SectionBackground({
           transition={{
             duration: 8,
             repeat: Infinity,
-            repeatType: "reverse",
+            repeatType: "reverse" as const,
             ease: "easeInOut",
           }}
         />

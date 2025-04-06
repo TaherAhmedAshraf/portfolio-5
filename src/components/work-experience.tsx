@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { StaggerContainer, FadeIn, SlideInLeft, SlideInRight } from "@/components/animations/motion-elements";
-import { SectionBackground } from "@/components/section-background";
+import { StaggerContainer, SlideInLeft, SlideInRight } from "@/components/animations/motion-elements";
 
 // Work experience data
 const experiences = [

@@ -31,8 +31,8 @@ export default function ProjectGeneratorPage() {
                     project ideas tailored to your interests and skills.
                   </p>
                   <p className="text-muted-foreground">
-                    Simply enter a brief description like <span className="text-foreground font-medium">"A React app for plant lovers"</span> or {" "}
-                    <span className="text-foreground font-medium">"A mobile game with puzzle elements"</span>, and the AI will do the rest.
+                    Simply enter a brief description like <span className="text-foreground font-medium">&quot;A React app for plant lovers&quot;</span> or {" "}
+                    <span className="text-foreground font-medium">&quot;A mobile game with puzzle elements&quot;</span>, and the AI will do the rest.
                   </p>
                 </CardContent>
               </Card>
@@ -45,7 +45,7 @@ export default function ProjectGeneratorPage() {
             >
               <Card className="h-full bg-background/60 border-border/40">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold mb-4 text-primary">What You'll Get</h3>
+                  <h3 className="text-xl font-semibold mb-4 text-primary">What You&apos;ll Get</h3>
                   <ul className="space-y-2 text-muted-foreground">
                     <li className="flex items-start gap-2">
                       <span className="text-primary">•</span>

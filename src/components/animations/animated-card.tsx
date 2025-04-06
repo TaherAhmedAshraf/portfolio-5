@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ReactNode } from "react";
-import Image from "next/image";
 
 interface AnimatedCardProps {
   title: string;

@@ -37,7 +37,7 @@ export default function AboutPage() {
               </div>
               <FadeIn delay={0.5}>
                 <p className="text-xl text-muted-foreground">
-                  I'm Taher Ahmed, a Full-Stack Developer and AI Enthusiast with a passion for building innovative digital solutions that solve real-world problems.
+                  I&apos;m Taher Ahmed, a Full-Stack Developer and AI Enthusiast with a passion for building innovative digital solutions that solve real-world problems.
                 </p>
               </FadeIn>
             </SlideInLeft>
@@ -84,13 +84,13 @@ export default function AboutPage() {
               <div className="space-y-6">
                 <h3 className="text-2xl font-bold">Personal Background</h3>
                 <p className="text-muted-foreground">
-                  I'm a passionate developer with a strong focus on creating seamless user experiences through innovative technology solutions. My journey began with a curiosity about how digital systems work, which led me to explore various programming languages and frameworks.
+                  I&apos;m a passionate developer with a strong focus on creating seamless user experiences through innovative technology solutions. My journey began with a curiosity about how digital systems work, which led me to explore various programming languages and frameworks.
                 </p>
                 <p className="text-muted-foreground">
-                  As CTO & Co-founder of Dreabuild, I lead the technical vision and strategy, working with talented developers to build AI-powered and business automation tools. I'm constantly exploring new technologies and methodologies to enhance our solutions.
+                  As CTO & Co-founder of Dreabuild, I lead the technical vision and strategy, working with talented developers to build AI-powered and business automation tools. I&apos;m constantly exploring new technologies and methodologies to enhance our solutions.
                 </p>
                 <p className="text-muted-foreground">
-                  When I'm not coding, you might find me exploring new tech trends, contributing to open-source projects, or mentoring aspiring developers. I believe in continuous learning and staying updated with the latest industry developments.
+                  When I&apos;m not coding, you might find me exploring new tech trends, contributing to open-source projects, or mentoring aspiring developers. I believe in continuous learning and staying updated with the latest industry developments.
                 </p>
               </div>
             </SlideInLeft>
@@ -352,13 +352,13 @@ export default function AboutPage() {
               <div className="space-y-3">
                 <h3 className="text-xl font-bold text-primary">Clean, Maintainable Code</h3>
                 <p className="text-muted-foreground">
-                  Writing clean, well-documented code that's easy to maintain and scale is fundamental to my development process. I prioritize code quality and follow best practices.
+                  Writing clean, well-documented code that&apos;s easy to maintain and scale is fundamental to my development process. I prioritize code quality and follow best practices.
                 </p>
               </div>
               <div className="space-y-3">
                 <h3 className="text-xl font-bold text-primary">Continuous Learning</h3>
                 <p className="text-muted-foreground">
-                  Technology evolves rapidly, and I'm committed to staying ahead through continuous learning and adaptation. I embrace new tools and methodologies that improve efficiency and outcomes.
+                  Technology evolves rapidly, and I&apos;m committed to staying ahead through continuous learning and adaptation. I embrace new tools and methodologies that improve efficiency and outcomes.
                 </p>
               </div>
             </SlideInLeft>

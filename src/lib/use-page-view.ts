@@ -19,9 +19,9 @@ export function usePageView() {
         // Get full URL including search params
         const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
         
-        // Update the document title with the page name for better analytics
+        // Update the document title with the current page info
         const pageName = pathname.split('/').pop() || 'home';
-        document.title = document.title.replace(/( \| .*)?$/, ` | Taher Ahmed Ashraf`);
+        document.title = `${pageName.charAt(0).toUpperCase() + pageName.slice(1)} | Taher Ahmed Ashraf`;
         
         // Log page view - in a real app, you'd send this to your analytics platform
         console.log(`Page view: ${url}`);

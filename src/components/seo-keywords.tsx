@@ -13,7 +13,7 @@ export function SeoKeywords() {
         build scalable web applications, mobile apps, and desktop software.
       </p>
       
-      <h3>Taher Ahmed's Professional Experience</h3>
+      <h3>Taher Ahmed&apos;s Professional Experience</h3>
       <p>
         Taher Ahmed is the CTO and Co-founder of Dreabuild, a software development company. 
         Previously, Taher worked as a Lead Full Stack Developer at Solar ICT and as a Full Stack Developer at Genres Agency.
@@ -27,9 +27,9 @@ export function SeoKeywords() {
         mobile app development, and AI integration.
       </p>
       
-      <h3>Taher Ahmed's Portfolio</h3>
+      <h3>Taher Ahmed&apos;s Portfolio</h3>
       <p>
-        Explore Taher's portfolio to see examples of his work across various industries and technologies.
+        Explore Taher&apos;s portfolio to see examples of his work across various industries and technologies.
         Taher has experience working with clients globally and provides high-quality development services.
       </p>
     </div>

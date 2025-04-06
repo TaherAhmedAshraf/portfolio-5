@@ -11,7 +11,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, className = "" }: PageHeaderProps) {
   return (
-    <section className="py-24 md:py-32 relative">
+    <section className={`py-24 md:py-32 relative ${className}`}>
       <SectionBackground variant="gradient" intensity="medium" />
       <div className="container mx-auto max-w-6xl px-4">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
