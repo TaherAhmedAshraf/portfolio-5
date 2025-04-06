@@ -1,26 +1,746 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.05 0 0);  /* Very dark background */
+  --foreground: oklch(0.95 0 0);  /* Light text */
+  --card: oklch(0.08 0 0);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.08 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.65 0.27 200);  /* Vivid teal/cyan primary color */
+  --primary-rgb: 0, 210, 255;  /* Teal/cyan primary color in RGB */
+  --primary-gradient: linear-gradient(135deg, #00d2ff, #3a7bd5);  /* Gradient from teal to blue */
+  --primary-foreground: oklch(0.95 0 0);
+  --secondary: oklch(0.12 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.12 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.12 0 0);
+  --accent-foreground: oklch(0.95 0 0);
+  --destructive: oklch(0.65 0.2 27.325);
+  --border: oklch(0.15 0 0);
+  --input: oklch(0.15 0 0);
+  --ring: oklch(0.55 0.27 200);  /* Teal ring color */
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.08 0 0);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.65 0.27 200);  /* Teal sidebar primary */
+  --sidebar-primary-foreground: oklch(0.95 0 0);
+  --sidebar-accent: oklch(0.12 0 0);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.15 0 0);
+  --sidebar-ring: oklch(0.55 0.27 200);  /* Teal sidebar ring */
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* Add a custom portfolio background */
+.portfolio-background {
+  background-color: var(--background);
+  background-image: 
+    radial-gradient(rgba(var(--primary-rgb), 0.05) 1px, transparent 1px), 
+    radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: 0 0, 25px 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Gradient corners */
+.portfolio-background::before,
+.portfolio-background::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--primary-rgb), 0.2), transparent 70%);
+  z-index: 0;
+  opacity: 0.6;
+  filter: blur(120px);
+  animation: gradientMove 25s infinite alternate ease-in-out;
+}
+
+.portfolio-background::before {
+  top: -200px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.3), transparent 70%);
+  animation-delay: 0s;
+}
+
+.portfolio-background::after {
+  bottom: -200px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(58, 123, 213, 0.3), transparent 70%);
+  animation-delay: -5s;
+}
+
+/* Additional gradient elements */
+.portfolio-background .gradient-1,
+.portfolio-background .gradient-2 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  filter: blur(100px);
+}
+
+.portfolio-background .gradient-1 {
+  width: 500px;
+  height: 500px;
+  top: 30%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(0, 255, 200, 0.2), transparent 70%);
+  animation: gradientFloat 20s infinite alternate ease-in-out;
+}
+
+.portfolio-background .gradient-2 {
+  width: 400px;
+  height: 400px;
+  bottom: 20%;
+  right: 10%;
+  background: radial-gradient(circle, rgba(100, 0, 255, 0.1), transparent 70%);
+  animation: gradientFloat 15s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes gradientMove {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(100px, 50px) scale(1.2);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
   }
 }
 
-body {
+@keyframes gradientFloat {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-30px, 30px) scale(1.1) rotate(5deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+/* Scanline effect */
+.portfolio-background::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 1px,
+    rgba(var(--primary-rgb), 0.02) 1px,
+    rgba(var(--primary-rgb), 0.02) 2px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle pulsing animation for certain UI elements */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.3);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(var(--primary-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+  }
+}
+
+.pulse-effect {
+  animation: pulse 3s infinite;
+}
+
+/* Animated gradient text */
+.gradient-text {
+  background: var(--primary-gradient);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientText 5s linear infinite;
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Custom cursor styles */
+html, body {
+  cursor: none !important;
+}
+
+/* Hide custom cursor on mobile/touch devices */
+@media (hover: none) and (pointer: coarse) {
+  html, body {
+    cursor: auto !important;
+  }
+  
+  .custom-cursor {
+    display: none !important;
+  }
+  
+  a, button, [role="button"], input, textarea, select, .interactive {
+    cursor: auto !important;
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+  margin-left: -3px;
+  margin-top: -3px;
+}
+
+/* Cursor Trail Effect */
+@keyframes cursorTrail {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+}
+
+/* Add a cursor trail effect on movement */
+.cursor-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.custom-cursor:active .cursor-dot::after {
+  animation: cursorTrail 0.5s ease-out forwards;
+}
+
+/* Cursor dot (now contains the MousePointer2 icon) */
+.cursor-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  filter: drop-shadow(0 0 3px rgba(0, 210, 255, 0.5));
+}
+
+/* Cursor outline/ring for hover effects */
+.cursor-outline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: 1px solid rgba(var(--primary-rgb), 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover state styles */
+.cursor-hover .cursor-dot {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.cursor-hover .cursor-outline {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Click state styling */
+.cursor-clicking .cursor-dot {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.cursor-clicking.cursor-hover .cursor-dot {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Interactive elements cursor style */
+a, button, [role="button"], input, textarea, select, .interactive {
+  cursor: none !important;
+}
+
+/* Glass morphism effect for cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(var(--primary-rgb), 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.4), 0 0 15px 0 rgba(var(--primary-rgb), 0.1);
+}
+
+/* Bouncy button animation */
+@keyframes bouncy {
+  0% {
+    transform: rotateZ(0deg) scale(1);
+  }
+  10% {
+    transform: rotateZ(10deg) scale(1.05); /* Left side up, right side down + scale up */
+  }
+  20% {
+    transform: rotateZ(-10deg) scale(1.05); /* Right side up, left side down + scale up */
+  }
+  30% {
+    transform: rotateZ(8deg) scale(1.03); /* Left side up, right side down again (decreased intensity) */
+  }
+  40% {
+    transform: rotateZ(-8deg) scale(1.03); /* Right side up, left side down */
+  }
+  50% {
+    transform: rotateZ(4deg) scale(1.01); /* Less pronounced bounce */
+  }
+  60% {
+    transform: rotateZ(-4deg) scale(1.01); /* Less pronounced bounce */
+  }
+  70%, 100% {
+    transform: rotateZ(0deg) scale(1); /* Return to normal */
+  }
+}
+
+.bouncy-button {
+  animation: bouncy 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center;
+  animation-fill-mode: both;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Add a subtle glow effect during animation */
+.bouncy-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  background: conic-gradient(
+    transparent, 
+    transparent, 
+    transparent, 
+    var(--primary)
+  );
+  opacity: 0;
+  z-index: -1;
+  animation: none;
+}
+
+.bouncy-button.bouncy-button::before {
+  animation: rotateConic 1.5s linear;
+}
+
+@keyframes rotateConic {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.1;
+  }
+  70% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Blue shine effect moving across the button */
+.bouncy-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(var(--primary-rgb, 0, 210, 255), 0.2), 
+    transparent
+  );
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bouncy-button.bouncy-button::after {
+  animation: shineEffect 1.5s ease-in-out;
+}
+
+@keyframes shineEffect {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    left: 200%;
+    opacity: 0;
+  }
+}
+
+/* Additional bouncy effect for text inside the button */
+.bouncy-button a {
+  display: inline-block;
+  animation: textBounce 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes textBounce {
+  0% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-3px);
+  }
+  30% {
+    transform: translateY(3px);
+  }
+  45% {
+    transform: translateY(-2px);
+  }
+  60% {
+    transform: translateY(2px);
+  }
+  75% {
+    transform: translateY(-1px);
+  }
+  85% {
+    transform: translateY(1px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, 
+    transparent,
+    rgba(0, 210, 255, 0.03) 40%,
+    rgba(0, 210, 255, 0.01) 80%,
+    transparent
+  );
+  background-size: 200% 200%;
+  animation: matrixFlow 10s linear infinite;
+}
+
+.matrix-rain::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 210, 255, 0.05) 2px,
+    rgba(0, 210, 255, 0.05) 3px
+  );
+  background-size: 100% 10px;
+  animation: matrixRain 20s linear infinite;
+}
+
+@keyframes matrixFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 200%;
+  }
+}
+
+@keyframes matrixRain {
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+/* Glowing border effect for images and cards */
+.glow-border {
+  position: relative;
+  border-radius: inherit;
+}
+
+.glow-border::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 1px; 
+  background: linear-gradient(135deg, transparent, rgba(0, 210, 255, 0.3), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-border:hover::after {
+  opacity: 1;
+}
+
+/* Animation delay utilities */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, rgba(var(--primary-rgb), 0.3), rgba(var(--primary-rgb), 0.5));
+  border-radius: 5px;
+  border: 2px solid var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, rgba(var(--primary-rgb), 0.5), rgba(var(--primary-rgb), 0.7));
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--background);
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Scroll Animation Utilities */
+.animate-in {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.fade-in.animate-in {
+  opacity: 1;
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-up.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-left.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-right.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scale-in.animate-in {
+  opacity: 1;
+  transform: scale(1);
 }
