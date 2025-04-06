@@ -13,9 +13,9 @@ const navItems = [
   { name: "Home", href: "/" },
   { name: "About Me", href: "/about" },
   { name: "Services", href: "/services" },
-  { name: "Portfolio", href: "/portfolio" },
+  // { name: "Portfolio", href: "/portfolio" },
   { name: "AI Project Generator", href: "/project-generator", highlight: true },
-  { name: "Contact", href: "/contact" },
+  // { name: "Contact", href: "/contact" },
 ];
 
 // Animation variants

@@ -294,10 +294,10 @@ export default function ContactPage() {
                       <div>
                         <h4 className="text-sm font-medium">Email</h4>
                         <a 
-                          href="mailto:taher88@live.com" 
+                          href="mailto:mail@taher.one" 
                           className="text-muted-foreground hover:text-primary transition-colors"
                         >
-                          taher88@live.com
+                          mail@taher.one
                         </a>
                       </div>
                     </div>
