@@ -374,13 +374,13 @@ export default function Home() {
             </AnimatedProjectCard>
           </div>
 
-          <FadeIn delay={0.5} className="mt-12 text-center">
+          {/* <FadeIn delay={0.5} className="mt-12 text-center">
             <AnimatedButton>
               <Button asChild className="rounded-full px-8 pulse-effect">
                 <Link href="/portfolio">View All Work</Link>
               </Button>
             </AnimatedButton>
-          </FadeIn>
+          </FadeIn> */}
         </div>
       </section>
     </div>
