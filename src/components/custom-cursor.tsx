@@ -1,30 +1,46 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { MousePointer2 } from "lucide-react";
 
 export function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-  const [isVideoHover, setIsVideoHover] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const cursorRef = useRef<HTMLDivElement>(null);
+  const positionRef = useRef({ x: 0, y: 0 });
+  const isVisibleRef = useRef(true);
+  const cursorStateRef = useRef({
+    isHovering: false,
+    isVideoHover: false,
+    isClicking: false
+  });
+  const rafRef = useRef<number>();
 
   useEffect(() => {
-    // Initial cursor position in the center of the viewport
-    setPosition({ 
-      x: typeof window !== 'undefined' ? window.innerWidth / 2 : 0, 
-      y: typeof window !== 'undefined' ? window.innerHeight / 2 : 0 
-    });
+    // Initial cursor position
+    if (typeof window !== 'undefined') {
+      positionRef.current = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2
+      };
+    }
 
-    // Function to handle mouse movement
+    const updateCursorPosition = () => {
+      if (!cursorRef.current) return;
+      
+      cursorRef.current.style.transform = `translate3d(${positionRef.current.x}px, ${positionRef.current.y}px, 0)`;
+      cursorRef.current.style.opacity = isVisibleRef.current ? '1' : '0';
+      
+      rafRef.current = requestAnimationFrame(updateCursorPosition);
+    };
+    
+    rafRef.current = requestAnimationFrame(updateCursorPosition);
+
     const onMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      if (!isVisible) setIsVisible(true);
+      positionRef.current = { x: e.clientX, y: e.clientY };
+      if (!isVisibleRef.current) {
+        isVisibleRef.current = true;
+      }
     };
 
-    // Function to handle hovering over interactive elements
     const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const isInteractive = 
@@ -36,90 +52,75 @@ export function CustomCursor() {
         target.tagName.toLowerCase() === 'select' ||
         target.classList.contains('interactive');
       
-      // Check if hovering over a video item
       const isVideoItem = target.classList.contains('video-item') || 
-                          target.closest('.video-item') !== null;
+                         target.closest('.video-item') !== null;
       
-      setIsHovering(isInteractive);
-      setIsVideoHover(isVideoItem);
+      if (cursorRef.current) {
+        cursorStateRef.current = {
+          ...cursorStateRef.current,
+          isHovering: isInteractive,
+          isVideoHover: isVideoItem
+        };
+        
+        // Update classes efficiently
+        const classes = ['cursor-hover', 'cursor-video'];
+        classes.forEach(className => {
+          if (className === 'cursor-hover' && isInteractive) {
+            cursorRef.current?.classList.add(className);
+          } else if (className === 'cursor-video' && isVideoItem) {
+            cursorRef.current?.classList.add(className);
+          } else {
+            cursorRef.current?.classList.remove(className);
+          }
+        });
+      }
     };
 
-    // Function to handle mouse leaving the window
-    const onMouseLeave = () => {
-      setIsVisible(false);
+    const onVisibilityChange = (visible: boolean) => {
+      isVisibleRef.current = visible;
     };
 
-    // Function to handle mouse entering the window
-    const onMouseEnter = () => {
-      setIsVisible(true);
-    };
-
-    // Function to handle mouse down for clicking effect
     const onMouseDown = () => {
-      setIsClicking(true);
+      cursorStateRef.current.isClicking = true;
+      cursorRef.current?.classList.add('cursor-clicking');
     };
 
-    // Function to handle mouse up
     const onMouseUp = () => {
-      setIsClicking(false);
+      cursorStateRef.current.isClicking = false;
+      cursorRef.current?.classList.remove('cursor-clicking');
     };
 
-    // Add event listeners
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseover', onMouseOver);
-    document.addEventListener('mouseleave', onMouseLeave);
-    document.addEventListener('mouseenter', onMouseEnter);
-    document.addEventListener('mousedown', onMouseDown);
-    document.addEventListener('mouseup', onMouseUp);
+    // Add event listeners with passive option for better performance
+    document.addEventListener('mousemove', onMouseMove, { passive: true });
+    document.addEventListener('mouseover', onMouseOver, { passive: true });
+    document.addEventListener('mouseleave', () => onVisibilityChange(false), { passive: true });
+    document.addEventListener('mouseenter', () => onVisibilityChange(true), { passive: true });
+    document.addEventListener('mousedown', onMouseDown, { passive: true });
+    document.addEventListener('mouseup', onMouseUp, { passive: true });
 
-    // Remove event listeners on cleanup
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseover', onMouseOver);
-      document.removeEventListener('mouseleave', onMouseLeave);
-      document.removeEventListener('mouseenter', onMouseEnter);
+      document.removeEventListener('mouseleave', () => onVisibilityChange(false));
+      document.removeEventListener('mouseenter', () => onVisibilityChange(true));
       document.removeEventListener('mousedown', onMouseDown);
       document.removeEventListener('mouseup', onMouseUp);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
-  }, [isVisible]);
-
-  // Style to position the cursor
-  const cursorStyle = {
-    transform: `translate(${position.x}px, ${position.y}px)`,
-    opacity: isVisible ? 1 : 0
-  };
-
-  // Dynamic class based on cursor state
-  const cursorClass = `
-    custom-cursor 
-    ${isHovering ? 'cursor-hover' : ''} 
-    ${isClicking ? 'cursor-clicking' : ''} 
-    ${isVideoHover ? 'cursor-video' : ''}
-  `.trim();
+  }, []);
 
   return (
     <div 
       ref={cursorRef}
-      className={cursorClass} 
-      style={cursorStyle}
+      className="custom-cursor"
     >
       <div className="cursor-dot">
         <MousePointer2 
-          size={isHovering ? 24 : 20} 
+          size={20}
           strokeWidth={1.5} 
-          className={`transition-all duration-300 ${
-            isClicking 
-              ? "text-white" 
-              : isHovering 
-                ? "text-primary"
-                : "text-primary/80"
-          }`}
-          style={{
-            transform: isClicking ? "scale(0.9) rotate(-10deg)" : isHovering ? "scale(1.1)" : "scale(1)",
-            filter: isClicking 
-              ? "drop-shadow(0 0 8px rgba(var(--primary-rgb), 0.8))" 
-              : "drop-shadow(0 0 5px rgba(var(--primary-rgb), 0.5))"
-          }}
+          className="transition-transform duration-300 text-primary/80"
         />
       </div>
       <div className="cursor-outline"></div>
