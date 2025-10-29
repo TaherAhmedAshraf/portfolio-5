@@ -91,7 +91,7 @@ export function Testimonials() {
 
                 <div className="relative z-10">
                   {/* Rating */}
-                  <div className="flex gap-1 mb-4">
+                  <div className="flex gap-1 mb-4" role="img" aria-label={`${testimonial.rating} out of 5 stars`}>
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
                       <motion.div
                         key={i}

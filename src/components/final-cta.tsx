@@ -124,11 +124,12 @@ export function FinalCTA() {
             className="mt-8 flex flex-wrap justify-center items-center gap-6 text-sm text-muted-foreground"
           >
             <div className="flex items-center gap-2">
-              <div className="flex -space-x-2">
+              <div className="flex -space-x-2" role="img" aria-label="Client avatars">
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
                     className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-cyan-500 border-2 border-background flex items-center justify-center text-white text-xs font-bold"
+                    aria-label={`Client avatar ${String.fromCharCode(64 + i)}`}
                   >
                     {String.fromCharCode(64 + i)}
                   </div>
@@ -137,7 +138,7 @@ export function FinalCTA() {
               <span>30+ Happy Clients</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-yellow-500">★★★★★</span>
+              <span className="text-yellow-500" role="img" aria-label="5 out of 5 stars">★★★★★</span>
               <span>5.0 Rating</span>
             </div>
             <div>
