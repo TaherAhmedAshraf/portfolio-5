@@ -7,7 +7,7 @@ export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const positionRef = useRef({ x: 0, y: 0 });
   const isVisibleRef = useRef(true);
-  const lastClassStateRef = useRef({ hover: false, video: false });
+  const lastHoverStateRef = useRef(false);
   const throttleTimeoutRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
@@ -54,27 +54,13 @@ export function CustomCursor() {
         target.tagName.toLowerCase() === 'select' ||
         target.classList.contains('interactive');
       
-      const isVideoItem = target.classList.contains('video-item') || 
-                         target.closest('.video-item') !== null;
-      
-      // Only update DOM if class state has changed
-      if (cursorRef.current) {
-        if (lastClassStateRef.current.hover !== isInteractive) {
-          lastClassStateRef.current.hover = isInteractive;
-          if (isInteractive) {
-            cursorRef.current.classList.add('cursor-hover');
-          } else {
-            cursorRef.current.classList.remove('cursor-hover');
-          }
-        }
-        
-        if (lastClassStateRef.current.video !== isVideoItem) {
-          lastClassStateRef.current.video = isVideoItem;
-          if (isVideoItem) {
-            cursorRef.current.classList.add('cursor-video');
-          } else {
-            cursorRef.current.classList.remove('cursor-video');
-          }
+      // Only update DOM if hover state has changed
+      if (cursorRef.current && lastHoverStateRef.current !== isInteractive) {
+        lastHoverStateRef.current = isInteractive;
+        if (isInteractive) {
+          cursorRef.current.classList.add('cursor-hover');
+        } else {
+          cursorRef.current.classList.remove('cursor-hover');
         }
       }
     };
