@@ -7,12 +7,8 @@ export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const positionRef = useRef({ x: 0, y: 0 });
   const isVisibleRef = useRef(true);
-  const cursorStateRef = useRef({
-    isHovering: false,
-    isVideoHover: false,
-    isClicking: false
-  });
-  const rafRef = useRef<number>();
+  const lastClassStateRef = useRef({ hover: false, video: false });
+  const throttleTimeoutRef = useRef<number>();
 
   useEffect(() => {
     // Initial cursor position
@@ -23,25 +19,31 @@ export function CustomCursor() {
       };
     }
 
-    const updateCursorPosition = () => {
+    const updateCursorPosition = (x: number, y: number) => {
       if (!cursorRef.current) return;
-      
-      cursorRef.current.style.transform = `translate3d(${positionRef.current.x}px, ${positionRef.current.y}px, 0)`;
-      cursorRef.current.style.opacity = isVisibleRef.current ? '1' : '0';
-      
-      rafRef.current = requestAnimationFrame(updateCursorPosition);
+      cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
-    
-    rafRef.current = requestAnimationFrame(updateCursorPosition);
 
     const onMouseMove = (e: MouseEvent) => {
       positionRef.current = { x: e.clientX, y: e.clientY };
+      updateCursorPosition(e.clientX, e.clientY);
+      
       if (!isVisibleRef.current) {
         isVisibleRef.current = true;
+        if (cursorRef.current) {
+          cursorRef.current.style.opacity = '1';
+        }
       }
     };
 
     const onMouseOver = (e: MouseEvent) => {
+      // Throttle mouseover events to reduce performance impact
+      if (throttleTimeoutRef.current) return;
+      
+      throttleTimeoutRef.current = window.setTimeout(() => {
+        throttleTimeoutRef.current = undefined;
+      }, 50); // Throttle to max 20 times per second
+
       const target = e.target as HTMLElement;
       const isInteractive = 
         target.tagName.toLowerCase() === 'a' || 
@@ -55,58 +57,67 @@ export function CustomCursor() {
       const isVideoItem = target.classList.contains('video-item') || 
                          target.closest('.video-item') !== null;
       
+      // Only update DOM if class state has changed
       if (cursorRef.current) {
-        cursorStateRef.current = {
-          ...cursorStateRef.current,
-          isHovering: isInteractive,
-          isVideoHover: isVideoItem
-        };
-        
-        // Update classes efficiently
-        const classes = ['cursor-hover', 'cursor-video'];
-        classes.forEach(className => {
-          if (className === 'cursor-hover' && isInteractive) {
-            cursorRef.current?.classList.add(className);
-          } else if (className === 'cursor-video' && isVideoItem) {
-            cursorRef.current?.classList.add(className);
+        if (lastClassStateRef.current.hover !== isInteractive) {
+          lastClassStateRef.current.hover = isInteractive;
+          if (isInteractive) {
+            cursorRef.current.classList.add('cursor-hover');
           } else {
-            cursorRef.current?.classList.remove(className);
+            cursorRef.current.classList.remove('cursor-hover');
           }
-        });
+        }
+        
+        if (lastClassStateRef.current.video !== isVideoItem) {
+          lastClassStateRef.current.video = isVideoItem;
+          if (isVideoItem) {
+            cursorRef.current.classList.add('cursor-video');
+          } else {
+            cursorRef.current.classList.remove('cursor-video');
+          }
+        }
       }
     };
 
-    const onVisibilityChange = (visible: boolean) => {
-      isVisibleRef.current = visible;
+    const onMouseLeave = () => {
+      isVisibleRef.current = false;
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = '0';
+      }
+    };
+
+    const onMouseEnter = () => {
+      isVisibleRef.current = true;
+      if (cursorRef.current) {
+        cursorRef.current.style.opacity = '1';
+      }
     };
 
     const onMouseDown = () => {
-      cursorStateRef.current.isClicking = true;
       cursorRef.current?.classList.add('cursor-clicking');
     };
 
     const onMouseUp = () => {
-      cursorStateRef.current.isClicking = false;
       cursorRef.current?.classList.remove('cursor-clicking');
     };
 
     // Add event listeners with passive option for better performance
     document.addEventListener('mousemove', onMouseMove, { passive: true });
     document.addEventListener('mouseover', onMouseOver, { passive: true });
-    document.addEventListener('mouseleave', () => onVisibilityChange(false), { passive: true });
-    document.addEventListener('mouseenter', () => onVisibilityChange(true), { passive: true });
+    document.addEventListener('mouseleave', onMouseLeave, { passive: true });
+    document.addEventListener('mouseenter', onMouseEnter, { passive: true });
     document.addEventListener('mousedown', onMouseDown, { passive: true });
     document.addEventListener('mouseup', onMouseUp, { passive: true });
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseover', onMouseOver);
-      document.removeEventListener('mouseleave', () => onVisibilityChange(false));
-      document.removeEventListener('mouseenter', () => onVisibilityChange(true));
+      document.removeEventListener('mouseleave', onMouseLeave);
+      document.removeEventListener('mouseenter', onMouseEnter);
       document.removeEventListener('mousedown', onMouseDown);
       document.removeEventListener('mouseup', onMouseUp);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
+      if (throttleTimeoutRef.current) {
+        clearTimeout(throttleTimeoutRef.current);
       }
     };
   }, []);

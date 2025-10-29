@@ -288,45 +288,12 @@ html, body {
   height: 24px;
   pointer-events: none;
   z-index: 99999;
-  will-change: transform;
   margin-left: -3px;
   margin-top: -3px;
   backface-visibility: hidden;
   transform-style: preserve-3d;
   -webkit-font-smoothing: subpixel-antialiased;
-}
-
-/* Cursor Trail Effect */
-@keyframes cursorTrail {
-  0% {
-    opacity: 0.7;
-    transform: translate3d(-50%, -50%, 0) scale(0.3);
-  }
-  100% {
-    opacity: 0;
-    transform: translate3d(-50%, -50%, 0) scale(0.1);
-  }
-}
-
-/* Add a cursor trail effect on movement */
-.cursor-dot::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  background-color: var(--primary);
-  border-radius: 50%;
-  opacity: 0;
-  transform: translate3d(-50%, -50%, 0) scale(0);
-  pointer-events: none;
-  z-index: -1;
-  will-change: transform, opacity;
-}
-
-.custom-cursor:active .cursor-dot::after {
-  animation: cursorTrail 0.5s ease-out forwards;
+  transition: opacity 0.3s ease-in-out;
 }
 
 /* Cursor dot (now contains the MousePointer2 icon) */
@@ -335,8 +302,8 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-  will-change: transform;
   filter: drop-shadow(0 0 3px rgba(0, 210, 255, 0.5));
+  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* Cursor outline/ring for hover effects */
@@ -351,7 +318,6 @@ html, body {
   border-radius: 50%;
   transform: translate3d(-50%, -50%, 0) scale(0);
   opacity: 0;
-  will-change: transform, opacity;
   transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
