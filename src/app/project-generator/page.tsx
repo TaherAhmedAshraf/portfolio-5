@@ -19,7 +19,7 @@ export default function ProjectGeneratorPage() {
         subtitle="Need inspiration for your next coding project? Let AI help you generate creative ideas"
       />
       
-      <Container className="mt-8 mb-16 flex-1">
+      <Container className="mt-8 mb-16 flex-1 relative z-10">
         <div className="max-w-4xl mx-auto space-y-10">
           {/* Description Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

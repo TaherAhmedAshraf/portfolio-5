@@ -348,6 +348,7 @@ a, button, [role="button"], .interactive {
 /* Show native cursor for text input fields for better UX */
 input[type="text"], input[type="email"], input[type="search"], input[type="url"], 
 input[type="tel"], input[type="number"], input[type="password"], 
+input:not([type]), /* inputs without type attribute default to text */
 textarea, select {
   cursor: text !important;
 }
