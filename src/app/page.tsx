@@ -24,7 +24,6 @@ import { SeoKeywords } from "@/components/seo-keywords";
 import { KnowledgePanel } from "@/components/knowledge-panel";
 import { AchievementsStats } from "@/components/achievements-stats";
 import { SkillsShowcase } from "@/components/skills-showcase";
-import { Testimonials } from "@/components/testimonials";
 import { FloatingParticles } from "@/components/floating-particles";
 import { TechStackBanner } from "@/components/tech-stack-banner";
 import { WhyWorkWithMe } from "@/components/why-work-with-me";
@@ -458,11 +457,6 @@ export default function Home() {
           </FadeIn> */}
         </div>
       </section>
-
-      <Separator className="opacity-20" />
-
-      {/* Testimonials Section */}
-      <Testimonials />
 
       <Separator className="opacity-20" />
 

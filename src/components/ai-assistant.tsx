@@ -175,66 +175,123 @@ export function AIAssistant() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1 }}
       >
-        <Button
-          onClick={toggleChat}
-          className="rounded-full w-14 h-14 p-0 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg"
-          aria-label="Open AI Assistant"
+        <motion.div
+          animate={{
+            boxShadow: [
+              "0 0 20px rgba(0, 210, 255, 0.4)",
+              "0 0 40px rgba(0, 210, 255, 0.6)",
+              "0 0 20px rgba(0, 210, 255, 0.4)"
+            ]
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="rounded-full"
         >
-          <span className="text-xl">{isOpen ? "✕" : "🤖"}</span>
-        </Button>
+          <Button
+            onClick={toggleChat}
+            className="rounded-full w-14 h-14 p-0 bg-gradient-to-br from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-500/90 text-primary-foreground shadow-lg"
+            aria-label="Open AI Assistant"
+          >
+            <motion.span 
+              className="text-2xl"
+              animate={isOpen ? {} : { 
+                rotate: [0, 10, -10, 10, 0],
+                scale: [1, 1.1, 1.1, 1.1, 1]
+              }}
+              transition={isOpen ? {} : { duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
+            >
+              {isOpen ? "✕" : "🤖"}
+            </motion.span>
+          </Button>
+        </motion.div>
       </motion.div>
 
       {/* Chat window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-24 right-6 w-[350px] max-w-[calc(100vw-2rem)] h-[500px] max-h-[calc(100vh-6rem)] z-50 rounded-lg shadow-xl overflow-hidden border border-border/60 bg-card"
+            className="fixed bottom-24 right-6 w-[350px] max-w-[calc(100vw-2rem)] h-[500px] max-h-[calc(100vh-6rem)] z-50 rounded-2xl shadow-2xl overflow-hidden border border-primary/30 bg-card backdrop-blur-xl"
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ duration: 0.2 }}
           >
             {/* Chat header */}
-            <div className="bg-primary p-4 text-primary-foreground flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-xl">🤖</span>
-                <h3 className="font-medium">AI Assistant</h3>
+            <div className="bg-gradient-to-r from-primary to-cyan-500 p-4 text-primary-foreground flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <motion.span 
+                  className="text-2xl"
+                  animate={{ 
+                    rotate: [0, 10, -10, 10, 0],
+                    scale: [1, 1.1, 1.1, 1.1, 1]
+                  }}
+                  transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  🤖
+                </motion.span>
+                <div>
+                  <h3 className="font-semibold">AI Assistant</h3>
+                  <p className="text-xs opacity-90">Always here to help</p>
+                </div>
               </div>
-              <button
+              <motion.button
                 onClick={toggleChat}
-                className="text-primary-foreground/80 hover:text-primary-foreground"
+                className="text-primary-foreground/80 hover:text-primary-foreground p-2 rounded-full hover:bg-white/10 transition-colors"
                 aria-label="Close chat"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 <span className="text-lg">✕</span>
-              </button>
+              </motion.button>
             </div>
 
             {/* Chat messages */}
-            <div className="h-[calc(100%-10rem)] overflow-y-auto p-4 flex flex-col gap-3">
+            <div className="h-[calc(100%-10rem)] overflow-y-auto p-4 flex flex-col gap-3 bg-gradient-to-b from-background/50 to-background">
               {messages.map((msg, index) => (
-                <div
+                <motion.div
                   key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
                   className={cn(
-                    "max-w-[80%] p-3 rounded-lg flex flex-col gap-1",
+                    "max-w-[80%] p-3 rounded-2xl flex flex-col gap-1 shadow-sm",
                     msg.role === "user"
-                      ? "bg-primary/10 ml-auto rounded-tr-none"
-                      : "bg-card border border-border/40 mr-auto rounded-tl-none"
+                      ? "bg-gradient-to-br from-primary to-cyan-500 text-primary-foreground ml-auto rounded-tr-sm"
+                      : "bg-card border border-border/40 mr-auto rounded-tl-sm"
                   )}
                 >
-                  <div className="text-sm">{msg.content}</div>
-                  <div className="text-xs text-muted-foreground self-end">
+                  <div className="text-sm leading-relaxed">{msg.content}</div>
+                  <div className={cn(
+                    "text-xs self-end",
+                    msg.role === "user" ? "text-primary-foreground/70" : "text-muted-foreground"
+                  )}>
                     {formatTime(msg.timestamp)}
                   </div>
-                </div>
+                </motion.div>
               ))}
               {isLoading && (
-                <div className="max-w-[80%] p-3 rounded-lg flex flex-col gap-1 bg-card border border-border/40 mr-auto rounded-tl-none">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="max-w-[80%] p-3 rounded-2xl flex flex-col gap-1 bg-card border border-border/40 mr-auto rounded-tl-sm"
+                >
                   <div className="flex gap-1 items-center">
-                    <span className="animate-pulse">⚫</span>
-                    <span className="animate-pulse animation-delay-200">⚫</span>
-                    <span className="animate-pulse animation-delay-400">⚫</span>
+                    <motion.span 
+                      className="w-2 h-2 rounded-full bg-primary"
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 0 }}
+                    />
+                    <motion.span 
+                      className="w-2 h-2 rounded-full bg-primary"
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
+                    />
+                    <motion.span 
+                      className="w-2 h-2 rounded-full bg-primary"
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+                    />
                   </div>
-                </div>
+                </motion.div>
               )}
               <div ref={messagesEndRef} />
             </div>
@@ -242,14 +299,14 @@ export function AIAssistant() {
             {/* Chat input */}
             <form
               onSubmit={handleSendMessage}
-              className="absolute bottom-0 left-0 right-0 p-4 bg-background border-t border-border/40 flex gap-2"
+              className="absolute bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border/40 flex gap-2"
             >
               <Textarea
                 ref={inputRef}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type your message..."
-                className="resize-none h-12 py-2 min-h-0"
+                className="resize-none h-12 py-2 min-h-0 rounded-xl border-border/60 focus:border-primary/50 transition-colors"
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
@@ -257,13 +314,18 @@ export function AIAssistant() {
                   }
                 }}
               />
-              <Button
-                type="submit"
-                className="rounded-full aspect-square p-0 w-12 h-12"
-                disabled={isLoading || !message.trim()}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <span>➤</span>
-              </Button>
+                <Button
+                  type="submit"
+                  className="rounded-full aspect-square p-0 w-12 h-12 bg-gradient-to-br from-primary to-cyan-500 hover:from-primary/90 hover:to-cyan-500/90 shadow-lg shadow-primary/25"
+                  disabled={isLoading || !message.trim()}
+                >
+                  <span className="text-lg">➤</span>
+                </Button>
+              </motion.div>
             </form>
           </motion.div>
         )}

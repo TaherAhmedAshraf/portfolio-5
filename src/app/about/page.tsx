@@ -15,10 +15,14 @@ import {
 } from "@/components/animations/motion-elements";
 import { AnimatedCharacters, AnimatedWords } from "@/components/animations/animated-text";
 import { SectionBackground } from "@/components/section-background";
+import { FloatingParticles } from "@/components/floating-particles";
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col">
+      {/* Floating particles effect */}
+      <FloatingParticles />
+      
       {/* Hero Section */}
       <section className="py-24 md:py-32 relative">
         <SectionBackground variant="gradient" intensity="medium" />
@@ -43,19 +47,53 @@ export default function AboutPage() {
             </SlideInLeft>
             <SlideInRight className="flex-1 flex justify-center md:justify-end">
               <motion.div 
-                className="relative w-60 h-60 md:w-80 md:h-80 rounded-lg overflow-hidden glow-border"
+                className="relative w-60 h-60 md:w-80 md:h-80 rounded-full overflow-hidden"
                 initial={{ rotate: 5, scale: 0.9 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ duration: 0.5, type: "spring", damping: 15 }}
+                whileHover={{ scale: 1.05 }}
               >
+                {/* Animated border gradient */}
+                <motion.div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: "linear-gradient(135deg, #00d2ff, #3a7bd5, #00d2ff)",
+                    padding: "4px",
+                  }}
+                  animate={{
+                    rotate: 360,
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  <div className="w-full h-full rounded-full bg-background" />
+                </motion.div>
+                
                 <motion.div 
-                  className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-primary/5 flex items-center justify-center border border-primary/10"
+                  className="absolute inset-1 bg-gradient-to-tr from-primary/30 to-primary/5 flex items-center justify-center border-2 border-primary/20 rounded-full overflow-hidden"
                   animate={{ 
-                    boxShadow: ["0px 0px 0px rgba(0,210,255,0.3)", "0px 0px 25px rgba(0,210,255,0.4)", "0px 0px 0px rgba(0,210,255,0.3)"] 
+                    boxShadow: [
+                      "0px 0px 20px rgba(0,210,255,0.3)", 
+                      "0px 0px 40px rgba(0,210,255,0.5)", 
+                      "0px 0px 20px rgba(0,210,255,0.3)"
+                    ] 
                   }}
                   transition={{ duration: 3, repeat: Infinity }}
                 >
-                  <Image src="/pfp.png" alt="Taher Ahmed" fill className="object-cover" />
+                  <Image 
+                    src="/pfp.png" 
+                    alt="Taher Ahmed" 
+                    fill 
+                    className="object-cover hover:scale-110 transition-transform duration-500"
+                  />
+                  
+                  {/* Hover overlay */}
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
+                  />
                 </motion.div>
               </motion.div>
             </SlideInRight>
