@@ -8,7 +8,7 @@ export function CustomCursor() {
   const positionRef = useRef({ x: 0, y: 0 });
   const isVisibleRef = useRef(true);
   const lastClassStateRef = useRef({ hover: false, video: false });
-  const throttleTimeoutRef = useRef<number>();
+  const throttleTimeoutRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     // Initial cursor position
