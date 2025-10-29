@@ -27,6 +27,8 @@ import { SkillsShowcase } from "@/components/skills-showcase";
 import { Testimonials } from "@/components/testimonials";
 import { FloatingParticles } from "@/components/floating-particles";
 import { TechStackBanner } from "@/components/tech-stack-banner";
+import { WhyWorkWithMe } from "@/components/why-work-with-me";
+import { FinalCTA } from "@/components/final-cta";
 
 // Schema.org structured data for enhanced search visibility
 const personSchema = {
@@ -461,6 +463,16 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <Testimonials />
+
+      <Separator className="opacity-20" />
+
+      {/* Why Work With Me Section */}
+      <WhyWorkWithMe />
+
+      <Separator className="opacity-20" />
+
+      {/* Final CTA Section */}
+      <FinalCTA />
     </div>
   );
 }
