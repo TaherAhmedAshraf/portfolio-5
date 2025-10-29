@@ -714,3 +714,62 @@ body {
   opacity: 1;
   transform: scale(1);
 }
+
+/* Magnetic button effect */
+.magnetic-button {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.magnetic-button:hover {
+  transform: scale(1.05);
+}
+
+/* Shimmer effect for buttons */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer-button {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Glow pulse effect */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(var(--primary-rgb), 0.8);
+  }
+}
+
+.glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}

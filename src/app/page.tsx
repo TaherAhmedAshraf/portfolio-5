@@ -22,6 +22,10 @@ import { HeroBackground } from "@/components/hero-background";
 import { SectionBackground } from "@/components/section-background";
 import { SeoKeywords } from "@/components/seo-keywords";
 import { KnowledgePanel } from "@/components/knowledge-panel";
+import { AchievementsStats } from "@/components/achievements-stats";
+import { SkillsShowcase } from "@/components/skills-showcase";
+import { Testimonials } from "@/components/testimonials";
+import { FloatingParticles } from "@/components/floating-particles";
 
 // Schema.org structured data for enhanced search visibility
 const personSchema = {
@@ -111,6 +115,9 @@ const portfolioSchema = {
 export default function Home() {
   return (
     <div className="flex flex-col">
+      {/* Floating particles effect */}
+      <FloatingParticles />
+      
       {/* Schema.org structured data for SEO */}
       <Script
         id="schema-person"
@@ -152,10 +159,33 @@ export default function Home() {
                 />
               </div>
               <FadeIn delay={0.5}>
-                <p className="text-xl text-muted-foreground">
-                  Building scalable web, mobile, and desktop applications with 3+ years of experience. CTO & Co-founder of Dreabuild.
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  Building scalable web, mobile, and desktop applications with <span className="text-primary font-semibold">3+ years of experience</span>. CTO & Co-founder of <span className="text-primary font-semibold">Dreabuild</span>.
                 </p>
               </FadeIn>
+              
+              {/* Quick highlights badges */}
+              <FadeIn delay={0.6} className="flex flex-wrap gap-2">
+                <motion.span 
+                  className="px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary"
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(0, 210, 255, 0.2)" }}
+                >
+                  🚀 50+ Projects
+                </motion.span>
+                <motion.span 
+                  className="px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 text-sm font-medium text-green-400"
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(34, 197, 94, 0.2)" }}
+                >
+                  ⭐ 30+ Happy Clients
+                </motion.span>
+                <motion.span 
+                  className="px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-sm font-medium text-purple-400"
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(168, 85, 247, 0.2)" }}
+                >
+                  🤖 AI Expert
+                </motion.span>
+              </FadeIn>
+              
               <FadeIn delay={0.8} className="flex flex-wrap gap-4 pt-4">
                 <AnimatedButton>
                   <Button asChild size="lg" className="rounded-full px-8 pulse-effect">
@@ -171,15 +201,39 @@ export default function Home() {
             </SlideInLeft>
             <SlideInRight className="flex-1 flex justify-center md:justify-end">
               <motion.div 
-                className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden glow-border"
+                className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden"
                 initial={{ rotate: -5, scale: 0.9 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ duration: 0.5, type: "spring", damping: 15 }}
+                whileHover={{ scale: 1.05 }}
               >
+                {/* Animated border gradient */}
+                <motion.div
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: "linear-gradient(135deg, #00d2ff, #3a7bd5, #00d2ff)",
+                    padding: "4px",
+                  }}
+                  animate={{
+                    rotate: 360,
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  <div className="w-full h-full rounded-full bg-background" />
+                </motion.div>
+                
                 <motion.div 
-                  className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-primary/5 flex items-center justify-center border border-primary/10"
+                  className="absolute inset-1 bg-gradient-to-tr from-primary/30 to-primary/5 flex items-center justify-center border-2 border-primary/20 rounded-full overflow-hidden"
                   animate={{ 
-                    boxShadow: ["0px 0px 0px rgba(0,210,255,0.3)", "0px 0px 25px rgba(0,210,255,0.4)", "0px 0px 0px rgba(0,210,255,0.3)"] 
+                    boxShadow: [
+                      "0px 0px 20px rgba(0,210,255,0.3)", 
+                      "0px 0px 40px rgba(0,210,255,0.5)", 
+                      "0px 0px 20px rgba(0,210,255,0.3)"
+                    ] 
                   }}
                   transition={{ duration: 3, repeat: Infinity }}
                 >
@@ -187,8 +241,13 @@ export default function Home() {
                     src="/pfp.png" 
                     alt="Taher Ahmed - Full Stack Developer"
                     fill 
-                    className="object-cover grayscale hover:grayscale-0 transition-all duration-300"
+                    className="object-cover hover:scale-110 transition-transform duration-500"
                     priority
+                  />
+                  
+                  {/* Hover overlay */}
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"
                   />
                 </motion.div>
               </motion.div>
@@ -196,6 +255,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Achievements Stats Section */}
+      <AchievementsStats />
 
       <Separator className="opacity-20" />
 
@@ -296,6 +358,13 @@ export default function Home() {
       {/* Work Experience Section */}
       <WorkExperience />
 
+      <Separator className="opacity-20" />
+
+      {/* Skills Showcase Section */}
+      <SkillsShowcase />
+
+      <Separator className="opacity-20" />
+
       {/* Featured Projects Section */}
       <section className="py-20 relative">
         <SectionBackground variant="grid" intensity="low" />
@@ -383,6 +452,11 @@ export default function Home() {
           </FadeIn> */}
         </div>
       </section>
+
+      <Separator className="opacity-20" />
+
+      {/* Testimonials Section */}
+      <Testimonials />
     </div>
   );
 }
