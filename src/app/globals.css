@@ -341,8 +341,15 @@ html, body {
 }
 
 /* Interactive elements cursor style */
-a, button, [role="button"], input, textarea, select, .interactive {
+a, button, [role="button"], .interactive {
   cursor: none !important;
+}
+
+/* Show native cursor for text input fields for better UX */
+input[type="text"], input[type="email"], input[type="search"], input[type="url"], 
+input[type="tel"], input[type="number"], input[type="password"], 
+textarea, select {
+  cursor: text !important;
 }
 
 /* Glass morphism effect for cards */
