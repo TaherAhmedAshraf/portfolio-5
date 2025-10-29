@@ -65,7 +65,7 @@ export function Testimonials() {
             Client Testimonials
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Don't just take my word for it - hear what clients have to say about working with me
+            Don&apos;t just take my word for it - hear what clients have to say about working with me
           </p>
         </motion.div>
 
@@ -107,7 +107,7 @@ export function Testimonials() {
 
                   {/* Content */}
                   <p className="text-foreground/80 mb-6 italic leading-relaxed">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </p>
 
                   {/* Author info */}

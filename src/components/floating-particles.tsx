@@ -80,7 +80,7 @@ export function FloatingParticles() {
     }
 
     // Mouse interaction
-    let mouse = { x: 0, y: 0, radius: 100 };
+    const mouse = { x: 0, y: 0, radius: 100 };
 
     const handleMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;

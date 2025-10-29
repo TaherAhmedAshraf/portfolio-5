@@ -26,6 +26,7 @@ import { AchievementsStats } from "@/components/achievements-stats";
 import { SkillsShowcase } from "@/components/skills-showcase";
 import { Testimonials } from "@/components/testimonials";
 import { FloatingParticles } from "@/components/floating-particles";
+import { TechStackBanner } from "@/components/tech-stack-banner";
 
 // Schema.org structured data for enhanced search visibility
 const personSchema = {
@@ -258,6 +259,9 @@ export default function Home() {
 
       {/* Achievements Stats Section */}
       <AchievementsStats />
+
+      {/* Tech Stack Banner */}
+      <TechStackBanner />
 
       <Separator className="opacity-20" />
 
