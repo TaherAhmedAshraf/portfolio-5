@@ -45,13 +45,30 @@ export function CustomCursor() {
       }, 50); // Throttle to max 20 times per second
 
       const target = e.target as HTMLElement;
+      
+      // Hide custom cursor over text input fields (native cursor is shown there)
+      const isTextInput = 
+        target.tagName.toLowerCase() === 'input' ||
+        target.tagName.toLowerCase() === 'textarea' ||
+        target.tagName.toLowerCase() === 'select';
+      
+      if (isTextInput) {
+        if (cursorRef.current && isVisibleRef.current) {
+          cursorRef.current.style.opacity = '0';
+          isVisibleRef.current = false;
+        }
+        return;
+      } else if (!isVisibleRef.current) {
+        if (cursorRef.current) {
+          cursorRef.current.style.opacity = '1';
+          isVisibleRef.current = true;
+        }
+      }
+      
       const isInteractive = 
         target.tagName.toLowerCase() === 'a' || 
         target.tagName.toLowerCase() === 'button' || 
         target.role === 'button' ||
-        target.tagName.toLowerCase() === 'input' ||
-        target.tagName.toLowerCase() === 'textarea' ||
-        target.tagName.toLowerCase() === 'select' ||
         target.classList.contains('interactive');
       
       // Only update DOM if hover state has changed

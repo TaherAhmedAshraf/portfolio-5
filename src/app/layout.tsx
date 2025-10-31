@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { CustomCursor } from "@/components/custom-cursor";
 import { BackgroundElements } from "@/components/background-elements";
 import { AIAssistant } from "@/components/ai-assistant";
 
@@ -85,7 +84,6 @@ export default function RootLayout({
           <div className="gradient-2"></div>
         </div>
         <BackgroundElements />
-        <CustomCursor />
         <Header />
         <main className="flex-1 relative z-10">{children}</main>
         <Footer />

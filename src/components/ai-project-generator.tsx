@@ -184,6 +184,7 @@ export function AIProjectGenerator() {
           <form onSubmit={handleGenerateProject} className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-2">
               <Input
+                type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="e.g., A React app for productivity, A mobile game about space exploration..."

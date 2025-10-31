@@ -14,10 +14,14 @@ import {
 } from "@/components/animations/motion-elements";
 import { AnimatedCharacters, AnimatedWords } from "@/components/animations/animated-text";
 import { SectionBackground } from "@/components/section-background";
+import { FloatingParticles } from "@/components/floating-particles";
 
 export default function ServicesPage() {
   return (
     <div className="flex flex-col">
+      {/* Floating particles effect */}
+      <FloatingParticles />
+      
       {/* Hero Section */}
       <section className="py-24 md:py-32 relative">
         <SectionBackground variant="gradient" intensity="medium" />
